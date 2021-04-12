@@ -27,6 +27,26 @@
 
 const posts = require('./posts.json')
 
-const paginate = (pageNumber, itemsPerPage) => {}
+const paginate = (collection, pageNumber = 1, itemsPerPage = 10) => {
+  const totalItems = collection.length
+  const totalPages = Math.ceil(totalItems / itemsPerPage)
+
+  if (pageNumber > totalPages) {
+    pageNumber = totalPages
+  }
+
+  const startPagination = (pageNumber - 1) * itemsPerPage
+  const endPagination = pageNumber * itemsPerPage
+
+  const response = {
+    currentPage: pageNumber,
+    perPage: itemsPerPage,
+    total: totalItems,
+    totalPages: totalPages,
+    data: collection.slice(startPagination, endPagination),
+  }
+
+  return response
+}
 
 module.exports = paginate
