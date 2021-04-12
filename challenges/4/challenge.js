@@ -26,8 +26,22 @@
  * }
  */
 
-const extractSize = htmlTemplate => {}
+const extractSize = (htmlTemplate) => {
+  let width = 0;
+  let height = 0;
 
-module.exports = extractSize;
+  const heightMatches = htmlTemplate.match(/height\:\s\d+/g);
+  const widthMatches = htmlTemplate.match(/width\:\s\d+/g);
 
+  if (heightMatches) {
+    height = Number(heightMatches[0].replace(/height\:\s/, ''));
+  }
 
+  if (widthMatches) {
+    width = Number(widthMatches[0].replace(/width\:\s/, ''));
+  }
+
+  return { width, height };
+}
+
+module.exports = extractSize
